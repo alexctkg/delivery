@@ -16,4 +16,4 @@ password:1234
 
 Agora você pode fazer o request através do endpoint:
 
-`http:////localhost:8080/recipes/?i={ingredient_1},{ingredient_2}`
+`http://localhost:8080/recipes/?i={ingredient_1},{ingredient_2}`
