@@ -9,6 +9,15 @@ import (
 	service "delivery/services"
 )
 
+// IndexRecipe godoc
+// @Tags Recipe
+// @Summary Index Recipe
+// @Description Gera uma lista de receitas dado ingredientews
+// @Param i query string false "Array de ngredientes (separados por virsgula)"
+// @Produce json
+// @Success 200 {object} []models.Recipe
+// @Failure 400 {object} models.DefaultError
+// @Router /recipe/ [GET]
 func IndexRecipe(c *gin.Context) {
 
 	ingredientes := c.DefaultQuery("i", "")
