@@ -1,10 +1,11 @@
 # delivery
 
 1. Copie a pasta delivery no `$GOPATH/src` 
-2. Execute `$ cp .env.example .env`
-3. Configure seu .env (acrescente a GIPHY_API_KEY) 
-4. Execute `$ docker build -t go-docker .`
-5. Execute `$ docker run -d -p 8080:8080 go-docker`
+2. Entre na pasta `$ cd delivery`
+3. Execute `$ cp .env.example .env`
+4. Configure seu .env (acrescente a GIPHY_API_KEY) 
+5. Execute `$ docker build -t go-docker .`
+6. Execute `$ docker run -d -p 8080:8080 go-docker`
 
 # Documentação
 o acesso da documentação é feita através do pacote Swaggo (https://github.com/swaggo/swag). Pode ser acessada através da rota `docs/index.html`
