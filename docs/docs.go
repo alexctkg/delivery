@@ -25,9 +25,9 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/recipe/": {
+        "/recipes/": {
             "get": {
-                "description": "Gera uma lista de receitas dado ingredientews",
+                "description": "Gera uma lista de receitas dado ingredientes",
                 "produces": [
                     "application/json"
                 ],
@@ -38,7 +38,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Array de ngredientes (separados por virsgula)",
+                        "description": "Array de ngredientes (separados por virgula)",
                         "name": "i",
                         "in": "query"
                     }

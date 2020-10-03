@@ -34,11 +34,11 @@ info:
   contact: {}
   license: {}
 paths:
-  /recipe/:
+  /recipes/:
     get:
-      description: Gera uma lista de receitas dado ingredientews
+      description: Gera uma lista de receitas dado ingredientes
       parameters:
-      - description: Array de ngredientes (separados por virsgula)
+      - description: Array de ngredientes (separados por virgula)
         in: query
         name: i
         type: string

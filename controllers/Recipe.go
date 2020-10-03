@@ -12,12 +12,12 @@ import (
 // IndexRecipe godoc
 // @Tags Recipe
 // @Summary Index Recipe
-// @Description Gera uma lista de receitas dado ingredientews
-// @Param i query string false "Array de ngredientes (separados por virsgula)"
+// @Description Gera uma lista de receitas dado ingredientes
+// @Param i query string false "Array de ngredientes (separados por virgula)"
 // @Produce json
 // @Success 200 {object} []models.Recipe
 // @Failure 400 {object} models.DefaultError
-// @Router /recipe/ [GET]
+// @Router /recipes/ [GET]
 func IndexRecipe(c *gin.Context) {
 
 	ingredientes := c.DefaultQuery("i", "")
