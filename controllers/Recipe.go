@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"delivery/models"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -27,11 +28,66 @@ func IndexRecipe(c *gin.Context) {
 
 	code, response, err := service.RecipePuppyRequest(ingredientes)
 	if err != nil {
-		c.JSON(400, gin.H{"errors": []string{err.Error()}})
+		c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu."}})
 		c.Abort()
 		return
 	}
 
-	c.JSON(*code, response)
+	if code != nil {
+		if *code != 200 {
+			c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu."}})
+			c.Abort()
+			return
+		}
+	} else {
+		if *code != 200 {
+			c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu. 1"}})
+			c.Abort()
+			return
+		}
+	}
+
+	//convertendo map para estrutura para facilitar manipulação
+	recipePuppyStruct, err := models.MapToRecipePuppy(response)
+	if err != nil {
+		c.JSON(400, gin.H{"errors": []string{"Houve uma falha na operação."}})
+		c.Abort()
+		return
+	}
+
+	recipe := models.Recipe{}
+	recipe.Keywords = ingredientesSlice
+
+	for _, worker := range recipePuppyStruct.Results {
+		//Para obter o gif no Giphy, utilize o título da receita recebido pelo RecipePuppy;
+		// code, response, err := service.GiphyRequest(worker.Title)
+		// if err != nil {
+		// 	c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu."}})
+		// 	c.Abort()
+		// 	return
+		// }
+
+		// spew.Dump(response)
+
+		// if code != nil {
+		// 	if *code != 200 {
+		// 		c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu."}})
+		// 		c.Abort()
+		// 		return
+		// 	}
+		// } else {
+		// 	if *code != 200 {
+		// 		c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu."}})
+		// 		c.Abort()
+		// 		return
+		// 	}
+		// }
+
+		recipeResouce := models.RecipePuppyResultsToRecipe(worker)
+		recipe.Recipes = append(recipe.Recipes, recipeResouce)
+
+	}
+	c.JSON(200, recipe)
+	c.Abort()
 	return
 }

@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// RecipePuppyRequest service para request na api Puppy
 func RecipePuppyRequest(ingredientes string) (*int, map[string]interface{}, error) {
 	url := "http://www.recipepuppy.com/api/?i=" + ingredientes
 	request, _ := http.NewRequest("GET", url, nil)
