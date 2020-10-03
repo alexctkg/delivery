@@ -17,3 +17,6 @@ password:1234
 Agora você pode fazer o request através do endpoint:
 
 `http://localhost:8080/recipes/?i={ingredient_1},{ingredient_2}`
+
+# Observações
+A api desenvolvida não apresenta testes. Acredito que é uma habilidade que devo desenvolver no futuro.
