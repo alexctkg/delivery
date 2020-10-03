@@ -12,6 +12,7 @@ type RecipePuppyResponse struct {
 	Version float64              `json:"version"`
 }
 
+// RecipePuppyResults .
 type RecipePuppyResults struct {
 	Href        string  `json:"href"`
 	Ingredients string  `json:"ingredients"`

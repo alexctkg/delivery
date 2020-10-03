@@ -68,29 +68,36 @@ func IndexRecipe(c *gin.Context) {
 	recipe.Keywords = ingredientesSlice
 
 	for _, worker := range recipePuppyStruct.Results {
-		//Para obter o gif no Giphy, utilize o título da receita recebido pelo RecipePuppy;
-		// code, response, err := service.GiphyRequest(worker.Title)
-		// if err != nil {
-		// 	c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu."}})
-		// 	c.Abort()
-		// 	return
-		// }
+		// Para obter o gif no Giphy, utilize o título da receita recebido pelo RecipePuppy;
 
-		// spew.Dump(response)
+		worker.Title = strings.Replace(worker.Title, "\n", "", -1) // remove newline
+		title := strings.Replace(worker.Title, " ", "+", -1)       // string replace to giphy request
 
-		// if code != nil {
-		// 	if *code != 200 {
-		// 		c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu."}})
-		// 		c.Abort()
-		// 		return
-		// 	}
-		// } else {
-		// 	if *code != 200 {
-		// 		c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu."}})
-		// 		c.Abort()
-		// 		return
-		// 	}
-		// }
+		code, response, err := service.GiphyRequest(title)
+		if err != nil {
+			c.JSON(400, gin.H{"errors": []string{"Houve uma falha na operação."}})
+			c.Abort()
+			return
+		}
+
+		if code != nil {
+			if *code != 200 {
+				c.JSON(400, gin.H{"errors": []string{"Ops! Algo de errado aconteceu."}})
+				c.Abort()
+				return
+				//API ok, extrai a url do gif
+			} else if *code == 200 {
+
+				giphyURL, err := models.MapToGiphyURL(response)
+
+				if err != nil {
+					worker.Giphy = nil
+				} else {
+					worker.Giphy = giphyURL
+				}
+
+			}
+		}
 
 		recipeResouce := models.RecipePuppyResultsToRecipe(worker)
 		recipe.Recipes = append(recipe.Recipes, recipeResouce)

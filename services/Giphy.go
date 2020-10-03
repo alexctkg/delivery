@@ -3,12 +3,13 @@ package services
 import (
 	"encoding/json"
 	"net/http"
+	"os"
 )
 
-// service para request na api Giphy
+//GiphyRequest service para request na api Giphy
 func GiphyRequest(title string) (*int, map[string]interface{}, error) {
-	url := "http://api.giphy.com/v1/gifs/search?q=cheeseburgers&api_key=GQ2lrWPMUgLVvxNLpgCUk4PMmaZVtEW7"
-	request, _ := http.NewRequest("POST", url, nil)
+	url := "https://api.giphy.com/v1/gifs/search?limit=1&api_key=" + os.Getenv("GIPHY_API_KEY") + "&q=?" + title
+	request, _ := http.NewRequest("GET", url, nil)
 	client := &http.Client{}
 	response, err := client.Do(request)
 	if err != nil {

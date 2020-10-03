@@ -11,11 +11,12 @@ type Recipe struct {
 	Recipes  []Recipes `json:"recipes"`
 }
 
+// Recipes .
 type Recipes struct {
 	Title       string   `json:"title"`
 	Ingredients []string `json:"ingredients"`
 	Link        string   `json:"link"`
-	Gif         *string  `json:"gif"`
+	Giphy       *string  `json:"gif"`
 }
 
 //RecipePuppyResultsToRecipe struct api puppy.Results para a recipe.Recipes
@@ -28,6 +29,7 @@ func RecipePuppyResultsToRecipe(puppy RecipePuppyResults) Recipes {
 	sort.Strings(ingredientesSlice)
 	recipes.Ingredients = ingredientesSlice
 	recipes.Link = puppy.Href
+	recipes.Giphy = puppy.Giphy
 
 	return recipes
 }
